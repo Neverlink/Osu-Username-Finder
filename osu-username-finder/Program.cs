@@ -21,29 +21,58 @@ namespace username_finder
 
                 Console.Write(Environment.NewLine);
             }
+
             Console.WriteLine("What kind of username do you wish to find?");
-            Console.WriteLine();
+            Console.Write(Environment.NewLine);
             Console.WriteLine("/words/");
             Console.WriteLine("     /three letter words/");
             Console.WriteLine("                       /three numbers/");
+            Console.Write(Environment.NewLine);
+            Console.Write("Use the numbers 1-3, \"all\" or type \"exit\" to quit. ");
             string input = Console.ReadLine().ToLower();
-            while (input != "1" && input != "words" && input != "three letter names" && input != "2" && input != "3" && input != "three numbers" && input != "exit")
+
+            while (input != "1" && input != "2" && input != "3" && input != "all" && input != "exit")
             {
                 Console.WriteLine("Invalid input!");
                 input = Console.ReadLine().ToLower();
             }
-            if (input == "1" || input == "words")
+            if (input == "1")
             {
-                FindWordNames();
+                //FindWordNames();
+                PrintErrorInfo();
             }
-            else if (input == "2" || input == "three letter names")
+            else if (input == "2")
             {
                 FindThreeLetterNames();
+                PrintErrorInfo();
             }
-            else if (input == "3" || input == "three numbers")
+            else if (input == "3")
             {
                 FindThreeNumberNames();
+                PrintErrorInfo();
             }
+            else if (input == "all")
+            {
+                FindWordNames();
+                FindThreeLetterNames();
+                FindThreeNumberNames();
+                PrintErrorInfo();
+            }
+            else if (input == "exit")
+            {
+                Environment.Exit(0);
+            }
+
+            Console.Write(Environment.NewLine);
+            Console.Write("Type \"Exit\" to quit: ");
+
+            input = Console.ReadLine().ToLower();
+
+            while (input != "exit")
+            {
+                input = Console.ReadLine().ToLower();
+            }
+            Environment.Exit(0);
         }
 
         static string getApiKey()
@@ -51,7 +80,7 @@ namespace username_finder
             string API_KEY = File.ReadAllText(@"Resources\apikey.txt");
             return API_KEY;
         }
-        //static string API_KEY = File.ReadAllText(@"Resources\apikey.txt");
+
         private IOsuApi Instance { get; }
 
         static void FindWordNames()
@@ -62,6 +91,7 @@ namespace username_finder
                 ModsSeparator = "|",
                 LogLevel = LoggingLevel.Debug
             });
+
             var wordList = File.ReadLines(@"Resources\words.txt");
 
             List<string> availableUsernames = new List<string>();
@@ -87,23 +117,25 @@ namespace username_finder
             Console.Write(Environment.NewLine);
             Console.WriteLine($"Available usernames -> {availableUsernames.Count}");
             Console.WriteLine($"Errors occurred -> {errorUsernames.Count}");
-            using (StreamWriter sw = File.AppendText("- Word List Usernames -"))
+            using (StreamWriter sw = File.AppendText(@"Results\WordListUsernames.txt"))
             {
+
                 foreach (string freeName in availableUsernames)
                 {
                     sw.WriteLine(freeName);
-                    sw.Flush();
                 }
-                sw.WriteLine();
+                sw.Write(Environment.NewLine);
+                sw.WriteLine($"Available usernames -> {availableUsernames.Count}");
                 sw.WriteLine("-----------------------");
-                sw.WriteLine();
+                sw.WriteLine($"Errors occurred -> {errorUsernames.Count}");
+                sw.Write(Environment.NewLine);
                 foreach (string errorName in errorUsernames)
                 {
                     sw.WriteLine(errorName);
-                    sw.Flush();
                 }
+                sw.WriteLine("-----------------------");
+                sw.WriteLine("END");
             }
-            PrintErrorInfo();
         }
         static void FindThreeLetterNames()
         {
@@ -138,23 +170,24 @@ namespace username_finder
             Console.Write(Environment.NewLine);
             Console.WriteLine($"Available usernames -> {availableUsernames.Count}");
             Console.WriteLine($"Errors occurred -> {errorUsernames.Count}");
-            using (StreamWriter sw = File.AppendText("- Three Letter Usernames -"))
+            using (StreamWriter sw = File.AppendText(@"Results\ThreeLetterUsernames.txt"))
             {
                 foreach (string freeName in availableUsernames)
                 {
                     sw.WriteLine(freeName);
-                    sw.Flush();
                 }
-                sw.WriteLine();
+                sw.Write(Environment.NewLine);
+                sw.WriteLine($"Available usernames -> {availableUsernames.Count}");
                 sw.WriteLine("-----------------------");
-                sw.WriteLine();
+                sw.WriteLine($"Errors occurred -> {errorUsernames.Count}");
+                sw.Write(Environment.NewLine);
                 foreach (string errorName in errorUsernames)
                 {
                     sw.WriteLine(errorName);
-                    sw.Flush();
                 }
+                sw.WriteLine("-----------------------");
+                sw.WriteLine("END");
             }
-            PrintErrorInfo();
         }
         static void FindThreeNumberNames()
         {
@@ -192,26 +225,27 @@ namespace username_finder
                     }
                 }
             }
-            using (StreamWriter sw = File.AppendText("- Three Number Usernames -"))
+            using (StreamWriter sw = File.AppendText(@"Results\ThreeNumberUsernames.txt"))
             {
                 foreach (string freeName in availableUsernames)
                 {
                     sw.WriteLine(freeName);
-                    sw.Flush();
                 }
-                sw.WriteLine();
+                sw.Write(Environment.NewLine);
+                sw.WriteLine($"Available usernames -> {availableUsernames.Count}");
                 sw.WriteLine("-----------------------");
-                sw.WriteLine();
+                sw.WriteLine($"Errors occurred -> {errorUsernames.Count}");
+                sw.Write(Environment.NewLine);
                 foreach (string errorName in errorUsernames)
                 {
                     sw.WriteLine(errorName);
-                    sw.Flush();
                 }
+                sw.WriteLine("-----------------------");
+                sw.WriteLine("END");
             }
             Console.Write(Environment.NewLine);
             Console.WriteLine($"Available usernames -> {availableUsernames.Count}");
             Console.WriteLine($"Errors occurred -> {errorUsernames.Count}");
-            PrintErrorInfo();
         }
         static void PrintErrorInfo()
         {

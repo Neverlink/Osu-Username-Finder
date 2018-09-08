@@ -107,7 +107,6 @@ D:\!Projects\osu-username-finder\osu-username-finder\obj\Debug\osu-username-find
 D:\!Projects\osu-username-finder\osu-username-finder\obj\Debug\osu-username-finder.csproj.CopyComplete
 D:\!Projects\osu-username-finder\osu-username-finder\obj\Debug\osu-username-finder.exe
 D:\!Projects\osu-username-finder\osu-username-finder\obj\Debug\osu-username-finder.pdb
-D:\!Projects\osu-username-finder\osu-username-finder\obj\Debug\osu-username-finder.csprojAssemblyReference.cache
 C:\Users\never\Desktop\asd\osu-username-finder\bin\Debug\osu-username-finder.exe.config
 C:\Users\never\Desktop\asd\osu-username-finder\bin\Debug\osu-username-finder.exe
 C:\Users\never\Desktop\asd\osu-username-finder\bin\Debug\osu-username-finder.pdb
