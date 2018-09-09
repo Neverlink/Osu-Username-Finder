@@ -38,7 +38,7 @@ namespace username_finder
             }
             if (input == "1")
             {
-                //FindWordNames();
+                FindWordNames();
                 PrintErrorInfo();
             }
             else if (input == "2")
@@ -119,7 +119,6 @@ namespace username_finder
             Console.WriteLine($"Errors occurred -> {errorUsernames.Count}");
             using (StreamWriter sw = File.AppendText(@"Results\WordListUsernames.txt"))
             {
-
                 foreach (string freeName in availableUsernames)
                 {
                     sw.WriteLine(freeName);
